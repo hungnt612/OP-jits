@@ -52,7 +52,7 @@ echo "Install Keystone. install from Victoria, EPEL, powertools"
 dnf --enablerepo=centos-openstack-victoria,epel,powertools -y install openstack-keystone python3-openstackclient httpd mod_ssl python3-mod_wsgi python3-oauth2client
 
 
-cat keystone.conf  | sed 's:MEMCACHED_SERVERS:'"${CONTROLLER_IP}:11211:" | sed 's:CONNECTION_DB:'"mysql+pymysql://keystone:password@${CONTROLLER_IP}/keystone:" > /etc/keystone/keystone.conf
+cat keystone.conf  | sed 's:MEMCACHED_SERVERS:'"$CONTROLLER_IP\:11211:" | sed 's:CONNECTION_DB:'"mysql+pymysql\://keystone\:password@$CONTROLLER_IP/keystone:" > /etc/keystone/keystone.conf
 # sed -i "s/#memcache_servers =.*/memcache_servers = ${CONTROLLER_IP}:11211/g" /etc/keystone/keystone.conf
 # sed -i "s/connection =.*/connection = mysql+pymysql://keystone:password@${CONTROLLER_IP}/keystone/g" /etc/keystone/keystone.conf
 echo "provider = fernet" >> /etc/keystone/keystone.conf
@@ -62,7 +62,7 @@ su -s /bin/bash keystone -c "keystone-manage db_sync"
 echo "initialize keys"
 keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
 keystone-manage credential_setup --keystone-user keystone --keystone-group keystone
-export controller=${CONTROLLER_IP}
+export controller=$CONTROLLER_IP
 keystone-manage bootstrap --bootstrap-password adminpassword --bootstrap-admin-url http://$controller:5000/v3/ --bootstrap-internal-url http://$controller:5000/v3/ --bootstrap-public-url http://$controller:5000/v3/ --bootstrap-region-id RegionOne
 
 echo "If SELinux is enabled, change boolean settings."
@@ -83,7 +83,7 @@ ln -s /usr/share/keystone/wsgi-keystone.conf /etc/httpd/conf.d/
 systemctl enable --now httpd
 
 echo "	Create and Load environment variables file."
-sed -i "s/export OS_AUTH_URL=.*/export OS_AUTH_URL=${CONTROLLER_IP}/v3/g" keystonerc
+sed -i "s/export OS_AUTH_URL=.*/export OS_AUTH_URL=$CONTROLLER_IP/v3/g" keystonerc
 chmod 600 keystonerc
 source keystonerc
 echo "source keystonerc " >> ~/.bash_profile
@@ -100,7 +100,7 @@ echo "add [glance] user in [admin] role"
 openstack role add --project service --user glance admin
 echo "create service entry for [glance]"
 openstack service create --name glance --description "OpenStack Image service" image
-export controller=${CONTROLLER_IP}
+export controller=$CONTROLLER_IP
 echo " create endpoint for [glance] (public)"
 openstack endpoint create --region RegionOne image public http://$controller:9292
 echo "create endpoint for [glance] (internal)"
@@ -118,4 +118,4 @@ dnf --enablerepo=centos-openstack-victoria,powertools,epel -y install openstack-
 echo "Configure Glance."
 
 
-cat glance-api.conf | sed 's:CONNECTION_DB:'"mysql+pymysql://glance:password@${CONTROLLER_IP}/glance:" | sed 's:AUTHENTICATE_URI:'"http://${CONTROLLER_IP}:5000:" | sed 's:AUTH_URL:'"http://${CONTROLLER_IP}:5000:" | sed 's:MEMCACHED_SERVERS:'"${CONTROLLER_IP}:11211:" > /etc/glance/glance-api.conf
+cat glance-api.conf | sed 's:CONNECTION_DB:'"mysql+pymysql\://glance\:password@$CONTROLLER_IP/glance:" | sed 's:AUTHENTICATE_URI:'"http\://$CONTROLLER_IP\:5000:" | sed 's:AUTH_URL:'"http://${CONTROLLER_IP}:5000:" | sed 's:MEMCACHED_SERVERS:'"$CONTROLLER_IP:\11211:" > /etc/glance/glance-api.conf
