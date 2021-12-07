@@ -78,7 +78,8 @@ firewall-cmd --add-port=5000/tcp --permanent
 firewall-cmd --reload
 
 echo "Enable settings for Keystone and start Apache httpd."
-sed -i "s/ServerName .*/ServerName  controller:80/g" /etc/httpd/conf/httpd.conf
+# cat keystone.conf  | sed 's:MEMCACHED_SERVERS:'"$CONTROLLER_IP\:11211:" | sed 's:CONNECTION_DB:'"mysql+pymysql\://keystone\:password@$CONTROLLER_IP/keystone:" > /etc/keystone/keystone.conf
+cat httpd.conf | sed -i "s/ServerName .*/ServerName  controller:80/g" >>/etc/httpd/conf/httpd.conf
 ln -s /usr/share/keystone/wsgi-keystone.conf /etc/httpd/conf.d/
 systemctl enable --now httpd
 
@@ -126,3 +127,6 @@ systemctl enable --now openstack-glance-api
 
 echo "	If SELinux is enabled, change boolean settings."
 setsebool -P glance_api_can_network on
+checkmodule -m -M -o glanceapi.mod glanceapi.te
+semodule_package --outfile glanceapi.pp --module glanceapi.mod
+semodule -i glanceapi.pp
