@@ -80,11 +80,12 @@ firewall-cmd --reload
 echo "Enable settings for Keystone and start Apache httpd."
 # cat keystone.conf  | sed 's:MEMCACHED_SERVERS:'"$CONTROLLER_IP\:11211:" | sed 's:CONNECTION_DB:'"mysql+pymysql\://keystone\:password@$CONTROLLER_IP/keystone:" > /etc/keystone/keystone.conf
 cat httpd.conf | sed -i "s/ServerName .*/ServerName  controller:80/g" >>/etc/httpd/conf/httpd.conf
+rm /etc/httpd/conf.d/wsgi-keystone.conf
 ln -s /usr/share/keystone/wsgi-keystone.conf /etc/httpd/conf.d/
 systemctl enable --now httpd
 
 echo "	Create and Load environment variables file."
-sed -i "s/export OS_AUTH_URL=.*/export OS_AUTH_URL=$CONTROLLER_IP/v3/g" keystonerc
+cat keystonerc | sed -i "s/export OS_AUTH_URL=.*/export OS_AUTH_URL=http\://$CONTROLLER_IP/v3/g" >> keystonerc
 chmod 600 keystonerc
 source keystonerc
 echo "source keystonerc " >> ~/.bash_profile
