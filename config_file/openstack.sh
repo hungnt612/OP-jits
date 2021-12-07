@@ -117,5 +117,12 @@ echo "Install Glance. install from Victoria, EPEL, powertools"
 dnf --enablerepo=centos-openstack-victoria,powertools,epel -y install openstack-glance
 echo "Configure Glance."
 
+echo "modify Glance conf"
+cat glance-api.conf | sed 's:CONNECTION_DB:'"mysql+pymysql\://glance\:password@$CONTROLLER_IP/glance:" | sed 's:AUTHENTICATE_URI:'"http\://$CONTROLLER_IP\:5000:" | sed 's:AUTH_URL:'"http\://${CONTROLLER_IP}:5000:" | sed 's:MEMCACHED_SERVERS:'"$CONTROLLER_IP:\11211:" > /etc/glance/glance-api.conf
+chmod 640 /etc/glance/glance-api.conf
+chown root:glance /etc/glance/glance-api.conf
+su -s /bin/bash glance -c "glance-manage db_sync"
+systemctl enable --now openstack-glance-api
 
-cat glance-api.conf | sed 's:CONNECTION_DB:'"mysql+pymysql\://glance\:password@$CONTROLLER_IP/glance:" | sed 's:AUTHENTICATE_URI:'"http\://$CONTROLLER_IP\:5000:" | sed 's:AUTH_URL:'"http://${CONTROLLER_IP}:5000:" | sed 's:MEMCACHED_SERVERS:'"$CONTROLLER_IP:\11211:" > /etc/glance/glance-api.conf
+echo "	If SELinux is enabled, change boolean settings."
+setsebool -P glance_api_can_network on
