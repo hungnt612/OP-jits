@@ -52,7 +52,7 @@ echo "Install Keystone. install from Victoria, EPEL, powertools"
 dnf --enablerepo=centos-openstack-victoria,epel,powertools -y install openstack-keystone python3-openstackclient httpd mod_ssl python3-mod_wsgi python3-oauth2client
 
 
-echo keystone.conf  | sed 's:MEMCACHED_SERVERS:'"${CONTROLLER_IP}:11211:" | sed 's:CONNECTION_DB:'"mysql+pymysql://keystone:password@${CONTROLLER_IP}/keystone:" > /etc/keystone/keystone.conf
+cat keystone.conf  | sed 's:MEMCACHED_SERVERS:'"${CONTROLLER_IP}:11211:" | sed 's:CONNECTION_DB:'"mysql+pymysql://keystone:password@${CONTROLLER_IP}/keystone:" > /etc/keystone/keystone.conf
 # sed -i "s/#memcache_servers =.*/memcache_servers = ${CONTROLLER_IP}:11211/g" /etc/keystone/keystone.conf
 # sed -i "s/connection =.*/connection = mysql+pymysql://keystone:password@${CONTROLLER_IP}/keystone/g" /etc/keystone/keystone.conf
 echo "provider = fernet" >> /etc/keystone/keystone.conf
@@ -118,4 +118,4 @@ dnf --enablerepo=centos-openstack-victoria,powertools,epel -y install openstack-
 echo "Configure Glance."
 
 
-echo glance-api.conf | sed 's:CONNECTION_DB:'"mysql+pymysql://glance:password@${CONTROLLER_IP}/glance:" | sed 's:AUTHENTICATE_URI:'"http://${CONTROLLER_IP}:5000:" | sed 's:AUTH_URL:'"http://${CONTROLLER_IP}:5000:" | sed 's:MEMCACHED_SERVERS:'"${CONTROLLER_IP}:11211:" > /etc/glance/glance-api.conf
+cat glance-api.conf | sed 's:CONNECTION_DB:'"mysql+pymysql://glance:password@${CONTROLLER_IP}/glance:" | sed 's:AUTHENTICATE_URI:'"http://${CONTROLLER_IP}:5000:" | sed 's:AUTH_URL:'"http://${CONTROLLER_IP}:5000:" | sed 's:MEMCACHED_SERVERS:'"${CONTROLLER_IP}:11211:" > /etc/glance/glance-api.conf
