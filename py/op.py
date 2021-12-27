@@ -76,13 +76,13 @@ def checkUser_func():
 def mariadbCheck_func():
     command="dpkg -l | awk '/mariadb/ {print }'|wc -l"
     mariadb_status=subprocess.call(command, shell=True)
-    if(mariadb_status==0):
-        print("Mariadb not ready, install it now")
+    # if(mariadb_status==0):
+    print("Mariadb not ready, install it now")
         # subprocess.call("dnf module -y install mariadb:10.3", shell=True)
-        subprocess.call("chmod +x mariadb_install.sh", shell=True)
-        subprocess.call("./mariadb_install.sh", shell=True)
-    if(mariadb_status==1):
-        print("Mariadb are ready")
+    subprocess.call("chmod +x mariadb_install.sh", shell=True)
+    subprocess.call("./mariadb_install.sh", shell=True)
+    # if(mariadb_status==1):
+    #     print("Mariadb are ready")
 
 def ntpServerCheck_func():
     command="dnf -y install chrony"
