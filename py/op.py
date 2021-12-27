@@ -155,6 +155,7 @@ def getRequirements_func():
     mariadbCheck_func()
     ntpServerCheck_func()
     addOpentackRepo_func()
+    subprocess.call("yum install epel-release -y", shell=True)
     print("Install RabbitMQ, Memcached.")
     print("enable powertools")
     flag=subprocess.call("dnf --enablerepo=powertools -y install rabbitmq-server memcached", shell=True)
@@ -181,6 +182,7 @@ def prepareDB_func():
     string="rootpasswd='%s' "%rootpasswd
     print(string)
     replace_line("db_init.sh", 4,string)
+    subprocess.call("./db_init.sh", shell=True)
 
 def activeKeyston_func():
     string="export OS_AUTH_URL=http://%s/v3"%hostname_controller
