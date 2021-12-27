@@ -52,7 +52,7 @@ def checkDiskInfo_func():
 
 def listFile_func():
     print("\n")
-    print('List all file in folder source')
+    print(colored('List all file in folder source',"red"))
     subprocess.call("ls -al",shell=True )
     print("\n")
 
@@ -66,11 +66,11 @@ def checkUser_func():
     # print(hostname)
     # print(user_temp)
     user=getpass.getuser()
-    print('Process are running which user: '+ user)
+    print(colored('Process are running which user: '+ user,"red"))
     if(user=='root'):
-        print("Running by root user")
+        print(colored("Running by root user","red"))
     else:
-        print("Must be running by root user\nEXIT NOW")
+        print(colored("Must be running by root user\nEXIT NOW","red"))
         exit()
 
 def mariadbCheck_func():
@@ -267,6 +267,10 @@ def __main():
     checkDiskInfo_func()
     listFile_func()
     checkAllVariable_func()
+    checkUser_func()
+    mariadbCheck_func()
+    ntpServerCheck_func()
+    addOpentackRepo_func()
     # listFile_func()
     # checkUser_func()
     # subprocess.call("ls -al",shell=True )
