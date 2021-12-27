@@ -6,7 +6,7 @@ import socket
 import getpass
 import re
 from typing import Tuple
-
+from termcolor import colored
 # name="/Users/hungnt"
 # if os.path.isdir(name):
 #     print( name +"is a directory")
@@ -22,30 +22,39 @@ ServerName_controller="%s:80"%hostname_controller
 memcache_servers = '%s:11211'%hostname_controller
 
 def checkAllVariable_func():
+    print("\n")
+    print(colored("Check all variable","red"))
     print("Subnet interface: " + subnet_interface)
     print("root password: " + rootpasswd)
     print("Host name controller: " + hostname_controller)
     print("Host name computer: " + hostname_compute)
-    print(" Server name controler: " + ServerName_controller )
+    print("Server name controler: " + ServerName_controller )
     print("Memcache servers: " +memcache_servers)
+    print("\n")
 
 def checkOSInfo_func():
-    print('Gathering system information\n')
+    print("\n")
+    print(colored('Gathering system information\n',"red"))
     uname ="uname"
     uname_arg = '-a'
     print("Gathering system information with %s command:\n" % uname)
     subprocess.call([uname, uname_arg])
+    print("\n")
 
 def checkDiskInfo_func():
-    print('Gathering disk information\n')
+    print("\n")
+    print(colored('Gathering disk information\n',"red"))
     DISKSPACE="df"
     DISKSPACE_ARG="-h"
     print("Gathering diskspace information with the $DISKSPACE command: \n\n")
     subprocess.call([DISKSPACE,DISKSPACE_ARG])
+    print("\n")
 
 def listFile_func():
+    print("\n")
     print('List all file in folder source')
     subprocess.call("ls -al",shell=True )
+    print("\n")
 
 def checkUser_func():
     # whoami="whoami"
