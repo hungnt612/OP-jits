@@ -219,8 +219,9 @@ def setupKeystone_func():
     subprocess.call("systemctl enable --now httpd", shell=True)
     string2="export OS_AUTH_URL=http://%s/v3"%hostname_controller
     replace_line("keystonerc",6,string2)
-    subprocess.call("echo keystonerc > ~/keystonerc",shell=True)
+    subprocess.call("cp keystonerc > ~/keystonerc",shell=True)
     subprocess.call("chmod 600 ~/keystonerc", shell=True)
+    print("test")
     subprocess.call("source ~/keystonerc && echo 'source ~/keystonerc '' >> ~/.bash_profile", shell=True)
     print("Create OP Projects.")
     subprocess.call("openstack project create --domain default --description 'Service Project' service",shell=True)
