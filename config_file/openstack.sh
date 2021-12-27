@@ -131,3 +131,6 @@ setsebool -P glance_api_can_network on
 checkmodule -m -M -o glanceapi.mod glanceapi.te
 semodule_package --outfile glanceapi.pp --module glanceapi.mod
 semodule -i glanceapi.pp
+
+
+echo "$DEPLOYMENT_FILES" | sed 's:DEPLOYMENT_IMAGE:'"${CI_REGISTRY_IMAGE}\:${CI_COMMIT_SHA}:" | sed 's:APP_NAME:'"${APP_NAME}:" | sed 's:ENVI:'"$ENVIRONMENTS:" | sed 's:NAMESPACES:'"$NAMESPACES:" > $(pwd)/deployment.yaml

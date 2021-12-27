@@ -1,0 +1,143 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    platform.confluent.io/cr-name: kafka
+    platform.confluent.io/last-applied: eyJtZXRhZGF0YSI6eyJhbm5vdGF0aW9ucyI6eyJwbGF0Zm9ybS5jb25mbHVlbnQuaW8vY3ItbmFtZSI6ImthZmthIiwicGxhdGZvcm0uY29uZmx1ZW50LmlvL25hbWVzcGFjZSI6ImNvbmZsdWVudC1rYWZrYSIsInBsYXRmb3JtLmNvbmZsdWVudC5pby90eXBlIjoia2Fma2EifSwibGFiZWxzIjp7ImFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnkiOiJjb25mbHVlbnQtb3BlcmF0b3IiLCJjb25mbHVlbnQtcGxhdGZvcm0iOiJ0cnVlIiwiY3ItbmFtZSI6ImthZmthIiwidHlwZSI6ImthZmthIn0sIm5hbWUiOiJrYWZrYSIsIm5hbWVzcGFjZSI6ImNvbmZsdWVudC1rYWZrYSIsIm93bmVyUmVmZXJlbmNlcyI6W3siYXBpVmVyc2lvbiI6InBsYXRmb3JtLmNvbmZsdWVudC5pby92MWJldGExIiwiYmxvY2tPd25lckRlbGV0aW9uIjp0cnVlLCJjb250cm9sbGVyIjp0cnVlLCJraW5kIjoiS2Fma2EiLCJuYW1lIjoia2Fma2EiLCJ1aWQiOiIyNDA2ZjRkYy00MzU2LTRmZWYtOTk5Ni1mMjEzZmY5NTk4YTIifV19LCJzcGVjIjp7ImNsdXN0ZXJJUCI6Ik5vbmUiLCJwb3J0cyI6W3sibmFtZSI6ImV4dGVybmFsIiwicG9ydCI6OTA5Mn0seyJuYW1lIjoiaHR0cC1leHRlcm5hbCIsInBvcnQiOjgwOTB9LHsibmFtZSI6ImludGVybmFsIiwicG9ydCI6OTA3MX0seyJuYW1lIjoiam14IiwicG9ydCI6NzIwM30seyJuYW1lIjoiam9sb2tpYSIsInBvcnQiOjc3Nzd9LHsibmFtZSI6InByb21ldGhldXMiLCJwb3J0Ijo3Nzc4fSx7Im5hbWUiOiJyZXBsaWNhdGlvbiIsInBvcnQiOjkwNzJ9XSwicHVibGlzaE5vdFJlYWR5QWRkcmVzc2VzIjp0cnVlLCJzZWxlY3RvciI6eyJhcHAiOiJrYWZrYSIsImNsdXN0ZXJJZCI6ImNvbmZsdWVudC1rYWZrYSIsImNvbmZsdWVudC1wbGF0Zm9ybSI6InRydWUiLCJ0eXBlIjoia2Fma2EifX0sInN0YXR1cyI6eyJsb2FkQmFsYW5jZXIiOnt9fX0=
+    platform.confluent.io/namespace: confluent-kafka
+    platform.confluent.io/type: kafka
+  creationTimestamp: "2021-12-09T07:01:55Z"
+  labels:
+    app.kubernetes.io/managed-by: confluent-operator
+    confluent-platform: "true"
+    cr-name: kafka
+    type: kafka
+  name: kafka
+  namespace: confluent-kafka
+  ownerReferences:
+  - apiVersion: platform.confluent.io/v1beta1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Kafka
+    name: kafka
+    uid: 2406f4dc-4356-4fef-9996-f213ff9598a2
+  resourceVersion: "18980628"
+  uid: df4c8cd6-a461-4afd-b4f5-86d1af662bd7
+spec:
+  clusterIP: None
+  clusterIPs:
+  - None
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: external
+    port: 9092
+    protocol: TCP
+    targetPort: 9092
+  - name: http-external
+    port: 8090
+    protocol: TCP
+    targetPort: 8090
+  - name: internal
+    port: 9071
+    protocol: TCP
+    targetPort: 9071
+  - name: jmx
+    port: 7203
+    protocol: TCP
+    targetPort: 7203
+  - name: jolokia
+    port: 7777
+    protocol: TCP
+    targetPort: 7777
+  - name: prometheus
+    port: 7778
+    protocol: TCP
+    targetPort: 7778
+  - name: replication
+    port: 9072
+    protocol: TCP
+    targetPort: 9072
+
+  publishNotReadyAddresses: true
+  selector:
+    app: kafka
+    clusterId: confluent-kafka
+    confluent-platform: "true"
+    type: kafka
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+
+
+  apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    platform.confluent.io/cr-name: kafka
+    platform.confluent.io/last-applied: eyJtZXRhZGF0YSI6eyJhbm5vdGF0aW9ucyI6eyJwbGF0Zm9ybS5jb25mbHVlbnQuaW8vY3ItbmFtZSI6ImthZmthIiwicGxhdGZvcm0uY29uZmx1ZW50LmlvL25hbWVzcGFjZSI6ImNvbmZsdWVudC1rYWZrYSIsInBsYXRmb3JtLmNvbmZsdWVudC5pby90eXBlIjoia2Fma2EifSwibGFiZWxzIjp7ImFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnkiOiJjb25mbHVlbnQtb3BlcmF0b3IiLCJjb25mbHVlbnQtcGxhdGZvcm0iOiJ0cnVlIiwiY3ItbmFtZSI6ImthZmthIiwidHlwZSI6ImthZmthIn0sIm5hbWUiOiJrYWZrYS0wLWludGVybmFsIiwibmFtZXNwYWNlIjoiY29uZmx1ZW50LWthZmthIiwib3duZXJSZWZlcmVuY2VzIjpbeyJhcGlWZXJzaW9uIjoicGxhdGZvcm0uY29uZmx1ZW50LmlvL3YxYmV0YTEiLCJibG9ja093bmVyRGVsZXRpb24iOnRydWUsImNvbnRyb2xsZXIiOnRydWUsImtpbmQiOiJLYWZrYSIsIm5hbWUiOiJrYWZrYSIsInVpZCI6IjI0MDZmNGRjLTQzNTYtNGZlZi05OTk2LWYyMTNmZjk1OThhMiJ9XX0sInNwZWMiOnsicG9ydHMiOlt7Im5hbWUiOiJleHRlcm5hbCIsInBvcnQiOjkwOTJ9LHsibmFtZSI6Imh0dHAtZXh0ZXJuYWwiLCJwb3J0Ijo4MDkwfSx7Im5hbWUiOiJpbnRlcm5hbCIsInBvcnQiOjkwNzF9LHsibmFtZSI6ImpteCIsInBvcnQiOjcyMDN9LHsibmFtZSI6ImpvbG9raWEiLCJwb3J0Ijo3Nzc3fSx7Im5hbWUiOiJwcm9tZXRoZXVzIiwicG9ydCI6Nzc3OH0seyJuYW1lIjoicmVwbGljYXRpb24iLCJwb3J0Ijo5MDcyfV0sInNlbGVjdG9yIjp7InN0YXRlZnVsc2V0Lmt1YmVybmV0ZXMuaW8vcG9kLW5hbWUiOiJrYWZrYS0wIn19LCJzdGF0dXMiOnsibG9hZEJhbGFuY2VyIjp7fX19
+    platform.confluent.io/namespace: confluent-kafka
+    platform.confluent.io/type: kafka
+  creationTimestamp: "2021-12-09T07:01:55Z"
+  labels:
+    app.kubernetes.io/managed-by: confluent-operator
+    confluent-platform: "true"
+    cr-name: kafka
+    type: kafka
+  name: kafka-0-internal
+  namespace: confluent-kafka
+  ownerReferences:
+  - apiVersion: platform.confluent.io/v1beta1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Kafka
+    name: kafka
+    uid: 2406f4dc-4356-4fef-9996-f213ff9598a2
+  resourceVersion: "19017873"
+  uid: bb328af4-f31b-48d9-a3b9-b3ae3441fcbd
+spec:
+  clusterIP: 10.233.15.58
+  clusterIPs:
+  - 10.233.15.58
+  externalIPs:
+  - 192.168.1.226
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: external
+    port: 9092
+    protocol: TCP
+    targetPort: 9092
+  - name: http-external
+    port: 8090
+    protocol: TCP
+    targetPort: 8090
+  - name: internal
+    port: 9071
+    protocol: TCP
+    targetPort: 9071
+  - name: jmx
+    port: 7203
+    protocol: TCP
+    targetPort: 7203
+  - name: jolokia
+    port: 7777
+    protocol: TCP
+    targetPort: 7777
+  - name: prometheus
+    port: 7778
+    protocol: TCP
+    targetPort: 7778
+  - name: replication
+    port: 9072
+    protocol: TCP
+    targetPort: 9072
+  selector:
+    statefulset.kubernetes.io/pod-name: kafka-0
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
