@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # REMOVE !!!!!!!!
-# sudo yum remove -y mariadb mariadb-server && sudo rm -rf /var/lib/mysql /etc/my.cnf 
+sudo yum remove -y mariadb mariadb-server && sudo rm -rf /var/lib/mysql /etc/my.cnf 
 
 echo hihi
  
@@ -41,15 +41,15 @@ echo "$SECURE_MYSQL"
 
 yum remove -y expect
 
- # Make sure that NOBODY can access the server without a password
-sudo mysql -uroot -p${rootpasswd} -e "UPDATE mysql.user SET Password = PASSWORD('$root_password') WHERE User = 'root'"
+#  # Make sure that NOBODY can access the server without a password
+# sudo mysql -uroot -p${rootpasswd} -e "UPDATE mysql.user SET Password = PASSWORD('$root_password') WHERE User = 'root'"
  
-# Kill the anonymous users
-sudo mysql -uroot -p${rootpasswd} -e "DROP USER IF EXISTS ''@'localhost'"
-# Because our hostname varies we'll use some Bash magic here.
-sudo mysql -uroot -p${rootpasswd} -e "DROP USER IF EXISTS ''@'$(hostname)'"
-# Kill off the demo database
-sudo mysql -uroot -p${rootpasswd} -e "DROP DATABASE IF EXISTS test"
+# # Kill the anonymous users
+# sudo mysql -uroot -p${rootpasswd} -e "DROP USER IF EXISTS ''@'localhost'"
+# # Because our hostname varies we'll use some Bash magic here.
+# sudo mysql -uroot -p${rootpasswd} -e "DROP USER IF EXISTS ''@'$(hostname)'"
+# # Kill off the demo database
+# sudo mysql -uroot -p${rootpasswd} -e "DROP DATABASE IF EXISTS test"
  
  
 echo "Creating staging database..."
