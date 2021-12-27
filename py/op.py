@@ -21,6 +21,14 @@ hostname_compute="compute"
 ServerName_controller="%s:80"%hostname_controller
 memcache_servers = '%s:11211'%hostname_controller
 
+def checkAllVariable_func():
+    print("Subnet interface: " + subnet_interface)
+    print("root password: " + rootpasswd)
+    print("Host name controller: " + hostname_controller)
+    print("Host name computer: " + hostname_compute)
+    print(" Server name controler: " + ServerName_controller )
+    print("Memcache servers: " +memcache_servers)
+
 def checkOSInfo_func():
     print('Gathering system information\n')
     uname ="uname"
@@ -241,11 +249,15 @@ def configureNova_func():
     subprocess.call("", shell=True)
     
     
-    
+
 
 subprocess.call("", shell=True)
 
 def __main():
+    checkOSInfo_func()
+    checkDiskInfo_func()
+    listFile_func()
+    checkAllVariable_func()
     # listFile_func()
     # checkUser_func()
     # subprocess.call("ls -al",shell=True )
@@ -255,7 +267,7 @@ def __main():
     # add_line('/Users/hungnt/project/bash/op/py/dmhieu', "abc" ,"condihieu2.7")
     # prepareDB_func()
     # print(command)
-    print("openstack endpoint create --region RegionOne image public http://%s:9292"%hostname_controller)
+    # print("openstack endpoint create --region RegionOne image public http://%s:9292"%hostname_controller)
     # findAndReplace_func("glance-api.conf","10.0.0.30","CONTROLER_HOST")
     print('SETUP COMPLETE')
 
