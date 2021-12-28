@@ -187,7 +187,7 @@ def prepareDB_func():
 def activeKeyston_func():
     string="export OS_AUTH_URL=http://%s/v3"%hostname_controller
     replace_line("keystonerc",6,string)
-    subprocess.call("echo keystonerc > ~/keystonerc",shell=True)
+    subprocess.call("cat keystonerc > ~/keystonerc",shell=True)
     subprocess.call("chmod 600 ~/keystonerc", shell=True)
     subprocess.call("source ~/keystonerc && echo 'source ~/keystonerc ' >> ~/.bash_profile", shell=True)
 
@@ -264,7 +264,7 @@ def configureNova_func():
     
 
 
-subprocess.call("", shell=True)
+# subprocess.call("", shell=True)
 
 def __main():
     # checkOSInfo_func()
