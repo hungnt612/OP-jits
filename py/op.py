@@ -257,6 +257,7 @@ def  configureGlance_func():
     print("Configure Glance.")
     subprocess.call("mv /etc/glance/glance-api.conf /etc/glance/glance-api.conf.org", shell=True)
     findAndReplace_func("glance-api.conf","CONTROLER_HOST",hostname_controller)
+    subprocess.call("cp glance-api.conf /etc/glance/glance-api.conf",shell=True)
     subprocess.call("chmod 640 /etc/glance/glance-api.conf && chown root:glance /etc/glance/glance-api.conf && su -s /bin/bash glance -c 'glance-manage db_sync'", shell=True)
     subprocess.call("systemctl enable --now openstack-glance-api && echo 'If SELinux is enabled, change boolean settings.' && setsebool -P glance_api_can_network on",shell=True)
     subprocess.call("checkmodule -m -M -o glanceapi.mod glanceapi.te && semodule_package --outfile glanceapi.pp --module glanceapi.mod && semodule -i glanceapi.pp", shell=True)
