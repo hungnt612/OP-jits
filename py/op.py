@@ -187,9 +187,16 @@ def prepareDB_func():
 def activeKeyston_func():
     string="export OS_AUTH_URL=http://%s/v3"%hostname_controller
     replace_line("keystonerc",6,string)
+    print("step1")
     subprocess.call("cat keystonerc > ~/keystonerc",shell=True)
+    print("step2")
+    
     subprocess.call("chmod 600 ~/keystonerc", shell=True)
+    print("step3")
+    
     subprocess.call("source ~/keystonerc && echo 'source ~/keystonerc ' >> ~/.bash_profile", shell=True)
+    print("step4")
+    
 
 def setupKeystone_func():
     print("Install Keystone")
