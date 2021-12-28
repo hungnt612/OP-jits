@@ -238,6 +238,8 @@ def setupKeystone_func():
     
 def  configureGlance_func():
     # activeKeyston_func()
+    subprocess.call("""openstack project create --domain default --description "Service Project" service""", shell=True)
+    subprocess.call("openstack project list", shell=True)
     print("Install and Configure OpenStack Image Service (Glance).")
     print("create [glance] user in [service] project")
     subprocess.call("openstack user create --domain default --project service --password servicepassword glance",shell=True)
@@ -345,14 +347,14 @@ def configureNova_func():
 
 
 def __main():
-    # checkOSInfo_func()
-    # checkDiskInfo_func()
-    # listFile_func()
-    # checkAllVariable_func()
-    # checkUser_func()
-    # getRequirements_func()
-    # prepareDB_func()
-    # setupKeystone_func()
+    checkOSInfo_func()
+    checkDiskInfo_func()
+    listFile_func()
+    checkAllVariable_func()
+    checkUser_func()
+    getRequirements_func()
+    prepareDB_func()
+    setupKeystone_func()
     configureGlance_func()
     configureNova_func()
     # activeKeyston_func()
