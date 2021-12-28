@@ -5,4 +5,5 @@ echo "Active keystone"
 cat keystonerc > ~/keystonerc
 chmod 600 ~/keystonerc
 source ~/keystonerc
-echo 'source ~/keystonerc ' >> ~/.bash_profile
+echo 'source ~/keystonerc ' >> ~/.bash_profile 
+source ~/.bash_profile
