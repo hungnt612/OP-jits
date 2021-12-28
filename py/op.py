@@ -188,7 +188,9 @@ def activeKeyston_func():
     string="export OS_AUTH_URL=http://%s/v3"%hostname_controller
     replace_line("keystonerc",6,string)
     print("step1")
+    subprocess.call("chmod +x activeKeystone.sh",shell=True)
     subprocess.call("./activeKeystone.sh",shell=True)
+    subprocess.call(". activeKeystone.sh",shell=True)
     print("step2")
     
     # subprocess.call("chmod 600 ~/keystonerc", shell=True)
