@@ -18,8 +18,8 @@ subnet_interface="0.0.0.0/24"
 rootpasswd="th61"
 hostname_controller="controller"
 hostname_compute="compute"
-ServerName_controller="%s:80"%hostname_controller
-memcache_servers = '%s:11211'%hostname_controller
+ServerName_controller="ServerName %s"%hostname_controller
+memcache_servers = 'memcache_servers = %s:11211'%hostname_controller
 
 def checkAllVariable_func():
     print("\n")
@@ -185,7 +185,7 @@ def prepareDB_func():
     subprocess.call("./db_init.sh", shell=True)
 
 def activeKeyston_func():
-    string="export OS_AUTH_URL=http://%s/v3"%hostname_controller
+    string="export OS_AUTH_URL=http://%s:5000/v3"%hostname_controller
     replace_line("keystonerc",6,string)
     print("step1")
     subprocess.call("chmod +x activeKeystone.sh",shell=True)
@@ -344,16 +344,16 @@ def configureNova_func():
 
 
 def __main():
-    # checkOSInfo_func()
-    # checkDiskInfo_func()
-    # listFile_func()
-    # checkAllVariable_func()
-    # checkUser_func()
-    # getRequirements_func()
-    # prepareDB_func()
-    # setupKeystone_func()
-    configureGlance_func()
-    configureNova_func()
+    checkOSInfo_func()
+    checkDiskInfo_func()
+    listFile_func()
+    checkAllVariable_func()
+    checkUser_func()
+    getRequirements_func()
+    prepareDB_func()
+    setupKeystone_func()
+    # configureGlance_func()
+    # configureNova_func()
     # activeKeyston_func()
     # listFile_func()
     # checkUser_func()
