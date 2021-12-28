@@ -190,7 +190,7 @@ def activeKeyston_func():
     print("step1")
     subprocess.call("chmod +x activeKeystone.sh",shell=True)
     subprocess.call("./activeKeystone.sh",shell=True)
-    subprocess.call(". activeKeystone.sh",shell=True)
+    # subprocess.call(". activeKeystone.sh",shell=True)
     print("step2")
     
     # subprocess.call("chmod 600 ~/keystonerc", shell=True)
