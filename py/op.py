@@ -237,7 +237,7 @@ def setupKeystone_func():
     subprocess.call("openstack project create --domain default --description 'Service Project' service",shell=True)
     
 def  configureGlance_func():
-    activeKeyston_func()
+    # activeKeyston_func()
     print("Install and Configure OpenStack Image Service (Glance).")
     print("create [glance] user in [service] project")
     subprocess.call("openstack user create --domain default --project service --password servicepassword glance",shell=True)
@@ -272,7 +272,7 @@ def setupKVM_func():
     subprocess.call(" systemctl enable --now libvirtd", shell=True)
 
 def configureNova_func():
-    activeKeyston_func()
+    # activeKeyston_func()
     print("Create [nova] user in [service] project")
     subprocess.call("openstack user create --domain default --project service --password servicepassword nova", shell=True)
     print("Add [nova] user in [admin] role")
@@ -344,14 +344,14 @@ def configureNova_func():
 
 
 def __main():
-    checkOSInfo_func()
-    checkDiskInfo_func()
-    listFile_func()
-    checkAllVariable_func()
-    checkUser_func()
-    getRequirements_func()
-    prepareDB_func()
-    setupKeystone_func()
+    # checkOSInfo_func()
+    # checkDiskInfo_func()
+    # listFile_func()
+    # checkAllVariable_func()
+    # checkUser_func()
+    # getRequirements_func()
+    # prepareDB_func()
+    # setupKeystone_func()
     configureGlance_func()
     configureNova_func()
     # activeKeyston_func()
