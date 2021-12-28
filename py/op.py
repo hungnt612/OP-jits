@@ -347,14 +347,14 @@ def configureNova_func():
 
 
 def __main():
-    checkOSInfo_func()
-    checkDiskInfo_func()
-    listFile_func()
-    checkAllVariable_func()
-    checkUser_func()
-    getRequirements_func()
-    prepareDB_func()
-    setupKeystone_func()
+    # checkOSInfo_func()
+    # checkDiskInfo_func()
+    # listFile_func()
+    # checkAllVariable_func()
+    # checkUser_func()
+    # getRequirements_func()
+    # prepareDB_func()
+    # setupKeystone_func()
     configureGlance_func()
     configureNova_func()
     # activeKeyston_func()
