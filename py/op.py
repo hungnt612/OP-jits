@@ -189,7 +189,7 @@ def activeKeyston_func():
     replace_line("keystonerc",6,string)
     subprocess.call("echo keystonerc > ~/keystonerc",shell=True)
     subprocess.call("chmod 600 ~/keystonerc", shell=True)
-    subprocess.call("source ~/keystonerc && echo 'source ~/keystonerc '' >> ~/.bash_profile", shell=True)
+    subprocess.call("source ~/keystonerc && echo 'source ~/keystonerc ' >> ~/.bash_profile", shell=True)
 
 def setupKeystone_func():
     print("Install Keystone")
@@ -217,12 +217,13 @@ def setupKeystone_func():
     replace_line("/etc/httpd/conf/httpd.conf",98,ServerName_controller)
     subprocess.call("ln -s /usr/share/keystone/wsgi-keystone.conf /etc/httpd/conf.d/", shell=True)
     subprocess.call("systemctl enable --now httpd", shell=True)
-    string2="export OS_AUTH_URL=http://%s/v3"%hostname_controller
-    replace_line("keystonerc",6,string2)
-    subprocess.call("cp keystonerc > /root/keystonerc",shell=True)
-    subprocess.call("chmod 600 /root/keystonerc", shell=True)
-    print("test")
-    subprocess.call("source ~/keystonerc && echo 'source ~/keystonerc '' >> ~/.bash_profile", shell=True)
+    # string2="export OS_AUTH_URL=http://%s/v3"%hostname_controller
+    # replace_line("keystonerc",6,string2)
+    # subprocess.call("cp keystonerc > /root/keystonerc",shell=True)
+    # subprocess.call("chmod 600 /root/keystonerc", shell=True)
+    # print("test")
+    # subprocess.call("source ~/keystonerc && echo 'source ~/keystonerc '' >> ~/.bash_profile", shell=True)
+    activeKeyston_func()
     print("Create OP Projects.")
     subprocess.call("openstack project create --domain default --description 'Service Project' service",shell=True)
     
@@ -273,7 +274,7 @@ def __main():
     # checkUser_func()
     # getRequirements_func()
     # prepareDB_func()
-    setupKeystone_func()
+    activeKeyston_func()
     # listFile_func()
     # checkUser_func()
     # subprocess.call("ls -al",shell=True )
