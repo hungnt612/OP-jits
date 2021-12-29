@@ -1,0 +1,10 @@
+hihi
+interface_driver = controller
+hee hee
+
+[ml2]
+type_drivers = flat,vlan,gre,vxlan
+tenant_network_types = vxlan
+mechanism_drivers = openvswitch
+extension_drivers = port_security
+

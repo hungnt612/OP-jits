@@ -30,6 +30,17 @@ mysql -uroot -p${rootpasswd} -e "create database placement; "
 mysql -uroot -p${rootpasswd} -e "grant all privileges on placement.* to placement@'localhost' identified by 'password';"
 mysql -uroot -p${rootpasswd} -e "grant all privileges on placement.* to placement@'%' identified by 'password'; "
 mysql -uroot -p${rootpasswd} -e "flush privileges;"
+echo " Add a User and Database on MariaDB for Neutron. "
+mysql -uroot -p${rootpasswd} -e "create database neutron_ml2; "
+mysql -uroot -p${rootpasswd} -e "grant all privileges on neutron_ml2.* to neutron@'localhost' identified by 'password'; "
+mysql -uroot -p${rootpasswd} -e "grant all privileges on neutron_ml2.* to neutron@'%' identified by 'password'; "
+mysql -uroot -p${rootpasswd} -e "flush privileges;"
+echo "Add a User and Database on MariaDB for Cinder."
+mysql -uroot -p${rootpasswd} -e "create database cinder;"
+mysql -uroot -p${rootpasswd} -e "grant all privileges on cinder.* to cinder@'localhost' identified by 'password'; "
+mysql -uroot -p${rootpasswd} -e "grant all privileges on cinder.* to cinder@'%' identified by 'password'; "
+mysql -uroot -p${rootpasswd} -e "flush privileges; "
+ 
 
 
 
