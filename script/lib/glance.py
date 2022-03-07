@@ -14,7 +14,7 @@ print(_bash_dir)
 
 def config_glance(ip_local):
     find_and_replace_config("controller=controller",f"{_bash_dir}glance.sh",f"controller={ip_local}")
-    cmd=f"source ~/keystonerc && {_bash_dir}glance.sh"
+    cmd=f"source /root/keystonerc && {_bash_dir}glance.sh"
     process=subprocess.call(str(cmd), shell=True)
     check_process(process, cmd )
     cmd=" mv /etc/glance/glance-api.conf /etc/glance/glance-api.conf.org"

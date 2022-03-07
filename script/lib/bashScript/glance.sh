@@ -4,7 +4,7 @@
 echo "`date`"
 controller=controller
 
-source ~/keystonerc
+source /root/keystonerc
 openstack user create --domain default --project service --password servicepassword glance
 openstack role add --project service --user glance admin
 openstack service create --name glance --description "OpenStack Image service" image
