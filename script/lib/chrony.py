@@ -15,3 +15,4 @@ print(_bash_dir)
 # Install Chrony and Configure NTP server for time adjustment. NTP uses 123/UDP.
 def install_chrony():
     process=subprocess.call("sudo apt -y install chrony",shell=True)
+    
