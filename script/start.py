@@ -33,5 +33,4 @@ subprocess.call("sleep 5 && echo 'Starting now....'",shell=True)
 
 
 subprocess.call(f"chmod +x {_bash_dir}*",shell=True)
-install_package()
 config_keystone(_ip_local_address)
