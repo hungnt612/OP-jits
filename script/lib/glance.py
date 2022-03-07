@@ -10,7 +10,7 @@ _top_dir=os.getcwd().split('\\')[-1]
 _bash_dir=_top_dir+"/lib/bashScript/"
 # sys.path.insert(0,f"{_script_dir}")
 from functions import *
-print(_bash_dir)
+# print(_bash_dir)
 
 def config_glance(ip_local):
     find_and_replace_config("controller=controller",f"{_bash_dir}glance.sh",f"controller={ip_local}")
