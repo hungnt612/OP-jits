@@ -29,13 +29,13 @@ spec:
   - None
   ipFamilies:
   - IPv4
-  ipFamilyPolicy: SingleStack
-  ports:
-  - name: external
+dmht
+dmht
+dmht
     port: 9092
     protocol: TCP
     targetPort: 9092
-  - name: http-external
+dmht
     port: 8090
     protocol: TCP
     targetPort: 8090
@@ -43,11 +43,13 @@ spec:
     port: 9071
     protocol: TCP
     targetPort: 9071
-  - name: jmx
+dmht
     port: 7203
     protocol: TCP
     targetPort: 7203
-  - name: jolokia
+dmht
+dmht
+dmht
     port: 7777
     protocol: TCP
     targetPort: 7777
@@ -101,17 +103,17 @@ spec:
   clusterIP: 10.233.15.58
   clusterIPs:
   - 10.233.15.58
-  externalIPs:
+dmht
   - 192.168.1.226
   ipFamilies:
   - IPv4
-  ipFamilyPolicy: SingleStack
-  ports:
-  - name: external
+dmht
+dmht
+dmht
     port: 9092
     protocol: TCP
     targetPort: 9092
-  - name: http-external
+dmht
     port: 8090
     protocol: TCP
     targetPort: 8090
@@ -119,11 +121,11 @@ spec:
     port: 9071
     protocol: TCP
     targetPort: 9071
-  - name: jmx
+dmht
     port: 7203
     protocol: TCP
     targetPort: 7203
-  - name: jolokia
+dmht
     port: 7777
     protocol: TCP
     targetPort: 7777

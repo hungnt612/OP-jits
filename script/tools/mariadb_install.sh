@@ -1,20 +1,21 @@
 #!/bin/bash
-
+source module/echo.sh
 # REMOVE !!!!!!!!
-sudo yum remove -y mariadb mariadb-server && sudo rm -rf /var/lib/mysql /etc/my.cnf 
+# sudo yum remove -y mariadb mariadb-server && sudo rm -rf /var/lib/mysql /etc/my.cnf 
 
-echo hihi
- 
+
+
 echo "Installing and configiring mariadb..."
- 
-sudo dnf module install mariadb -y
+
+# sudo dnf module install mariadb -y
+sudo apt -y install mariadb-server
 sudo systemctl enable mariadb
 sudo systemctl start mariadb
- 
-rootpasswd=th61
- 
-yum -y install expect
-echo"Configiring mariadb.."
+
+rootpasswd=admin
+
+sudo apt install expect -y
+echo "Configiring mariadb.."
 SECURE_MYSQL=$(expect -c "
 set timeout 10
 spawn mysql_secure_installation
@@ -39,7 +40,7 @@ expect eof
 
 echo "$SECURE_MYSQL"
 
-yum remove -y expect
+sudo apt remove -y expect
 
 #  # Make sure that NOBODY can access the server without a password
 # sudo mysql -uroot -p${rootpasswd} -e "UPDATE mysql.user SET Password = PASSWORD('$root_password') WHERE User = 'root'"
@@ -141,16 +142,16 @@ echo "Database named 'completed' pupulated with dummy data."
  
 echo "Creating staging_user and grant all permissions to staging database which password is password1..."
  
-mysql -uroot -p${rootpasswd} -e "CREATE USER IF NOT EXISTS 'staging_user'@'localhost' IDENTIFIED BY 'password1'"
+sudo mysql -uroot -p${rootpasswd} -e "CREATE USER IF NOT EXISTS 'staging_user'@'localhost' IDENTIFIED BY 'password1'"
  
-mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON staging.* to 'staging_user'@'localhost'"
+sudo mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON staging.* to 'staging_user'@'localhost'"
  
  
 echo "Creating production_user and grant all permissions to production database which password is password2..."
  
-mysql -uroot -p${rootpasswd} -e "CREATE USER IF NOT EXISTS 'production_user'@'localhost' IDENTIFIED BY 'password2'"
+sudo mysql -uroot -p${rootpasswd} -e "CREATE USER IF NOT EXISTS 'production_user'@'localhost' IDENTIFIED BY 'password2'"
  
-mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON production.* to 'production_user'@'localhost'"
+sudo mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON production.* to 'production_user'@'localhost'"
  
 # # Make our changes take effect
 sudo mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES"

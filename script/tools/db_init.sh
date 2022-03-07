@@ -1,7 +1,11 @@
 #!/bin/bash
+source module/echo.sh
 #print date time on screen
 echo "`date`"
-rootpasswd='th61' 
+controller=controller
+
+
+rootpasswd='admin' 
 
 mysql -uroot -p${rootpasswd} -e
 
@@ -44,4 +48,4 @@ mysql -uroot -p${rootpasswd} -e "flush privileges; "
 
 
 
-mysql -uroot -p${rootpasswd} -e ""
+# mysql -uroot -p${rootpasswd} -e ""
