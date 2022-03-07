@@ -12,6 +12,7 @@ _script_dir=_top_dir + "/lib"
 sys.path.insert(0,f"{_script_dir}")
 from functions import *
 from mariadb import *
+from getPackages import *
 _bash_dir=_script_dir+"/bashScript/"
 
 #GLOBAL_VARIABLE 
@@ -28,4 +29,4 @@ print(f"{bcolors.OKGREEN}Your IP address is: " + _ip_local_address + f"{bcolors.
 subprocess.call("sleep 5 && echo 'Starting now....'",shell=True)
 
 # subprocess.call(f"{_bash_dir}mariadb_install.sh",shell=True)
-install_mariadb()
+install_package()

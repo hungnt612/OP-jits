@@ -25,7 +25,6 @@ def install_mariadb():
     check_process(process, install_mariadb.__name__ )
     find_and_replace_config("bind-address","/etc/mysql/mariadb.conf.d/50-server.cnf","bind-address = 0.0.0.0")
     find_and_replace_config("max_connections","/etc/mysql/mariadb.conf.d/50-server.cnf","max_connections = 500")
-    
 
 
 
