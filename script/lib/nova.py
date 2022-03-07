@@ -13,6 +13,7 @@ from functions import *
 # print(_bash_dir)
 
 def config_nova(ip_local):
+    find_and_replace_config("controller =",f"{_bash_dir}nova.sh",f"controller={ip_local}")
     cmd=f"bash {_bash_dir}nova.sh"
     process=subprocess.call(str(cmd), shell=True)
     check_process(process, cmd )
