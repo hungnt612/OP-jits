@@ -19,6 +19,14 @@ def install_package():
     #     print(f"{bcolors.FAIL}Extute script failed...{bcolors.ENDC}")
     #     quit()
     check_process(process, install_package.__name__ )
+    print("Setup memcached")
+    process=subprocess.call("rabbitmqctl add_user openstack password", shell=True)
+    check_process(process, "rabbitmqctl add_user openstack password" )
+    process=subprocess.call(""""rabbitmqctl set_permissions openstack ".*" ".*" ".*" """, shell=True)
+    check_process(process, """Setting permissions for user "openstack" in vhost "/" ... """ )
+    find_and_replace_config("-l 127.0.0.1","/etc/memcached.conf","-l 0.0.0.0")
+    
+    
 
 
 
