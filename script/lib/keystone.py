@@ -28,3 +28,11 @@ def config_keystone(ip_local):
     cmd=f"keystone-manage bootstrap --bootstrap-password adminpassword --bootstrap-admin-url http://{ip_local}:5000/v3/ --bootstrap-internal-url http://{ip_local}:5000/v3/ --bootstrap-public-url http://{ip_local}:5000/v3/ --bootstrap-region-id RegionOne"
     process=subprocess.call(str(cmd), shell=True)
     check_process(process, cmd )
+    cmd=f"cp {_top_dir}/lib/keystonerc /root"
+    process=subprocess.call(str(cmd), shell=True)
+    check_process(process, cmd )
+    find_and_replace_config("export OS_AUTH_URL=","/root/keystonerc",f"export OS_AUTH_URL=http://{ip_local}:5000/v3")
+    print(""" create [service] project """)
+    cmd="""openstack project create --domain default --description "Service Project" service"""
+    process=subprocess.call(str(cmd), shell=True)
+    check_process(process, cmd )

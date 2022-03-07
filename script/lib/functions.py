@@ -44,7 +44,7 @@ def find_and_replace_config(phrase, filename, newPhrase):
                 # print(line_number)
                 with open(filename,'r') as f:
                     get_all=f.readlines()
-                    print(get_all)
+                    # print(get_all)
                 with open(filename,'w') as f:
                     for i,line in enumerate(get_all,1):         ## STARTS THE NUMBERING FROM 1 (by default it begins with 0)    
                         if i == line_number:                       ## OVERWRITES line:line_num
@@ -72,8 +72,19 @@ def check_process(process,name):
     else:
         print(f"{bcolors.OKGREEN}{name} Success...{bcolors.ENDC}")
 
+def find_and_replace_text(phrase, filename, newPhrase):
+    # Read in the file
+    with open(filename, 'r') as file :
+        filedata = file.read()
+# Replace the target string
+    filedata = filedata.replace(phrase, newPhrase)
+# Write the file out again
+    with open(filename, 'w') as file:
+        file.write(filedata)
+
+
 # def __main():
-#     find_and_replace_config("hungnt","/Users/hungnt/project/OP-jits/value.yaml","dmht")
+#     find_and_replace_text("hungnt","/Users/hungnt/project/OP-jits/value.yaml","dmht")
 
 # if __name__ == "__main__":
 #     __main()
