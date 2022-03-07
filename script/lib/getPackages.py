@@ -25,8 +25,8 @@ def install_package():
     process=subprocess.call("rabbitmqctl set_permissions openstack '.*' '.*' '.*' ", shell=True)
     check_process(process, """Setting permissions for user "openstack" in vhost "/" ... """ )
     find_and_replace_config("-l 127.0.0.1","/etc/memcached.conf","-l 0.0.0.0")
-    
-    
+    process=subprocess.call("systemctl restart mariadb rabbitmq-server memcached",shell=True)
+    check_process(process, "systemctl restart mariadb rabbitmq-server memcached" )
 
 
 
