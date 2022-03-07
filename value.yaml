@@ -24,15 +24,15 @@ metadata:
   resourceVersion: "18980628"
   uid: df4c8cd6-a461-4afd-b4f5-86d1af662bd7
 spec:
-  clusterIP: None
+  clusterIP: None dmht
   clusterIPs:
   - None
   ipFamilies:
   - IPv4
 dmht
 dmht
-dmht
-    port: 9092
+dmht dmht
+    port: dmht9092
     protocol: TCP
     targetPort: 9092
 dmht

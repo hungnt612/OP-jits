@@ -14,6 +14,7 @@ from functions import *
 from mariadb import *
 from getPackages import *
 from keystone import *
+from glance import *
 _bash_dir=_script_dir+"/bashScript/"
 
 #GLOBAL_VARIABLE 
@@ -30,4 +31,4 @@ print(f"{bcolors.OKGREEN}Your IP address is: " + _ip_local_address + f"{bcolors.
 subprocess.call("sleep 5 && echo 'Starting now....'",shell=True)
 
 # subprocess.call(f"{_bash_dir}mariadb_install.sh",shell=True)
-config_keystone(_ip_local_address)
+config_glance(_ip_local_address)
