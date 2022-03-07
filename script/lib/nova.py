@@ -13,6 +13,9 @@ from functions import *
 # print(_bash_dir)
 
 def config_nova(ip_local):
+    cmd=f"bash {_bash_dir}nova.sh"
+    process=subprocess.call(str(cmd), shell=True)
+    check_process(process, cmd )
     cmd="mv /etc/nova/nova.conf /etc/nova/nova.conf.org"
     process=subprocess.call(str(cmd), shell=True)
     check_process(process, cmd )
