@@ -19,12 +19,12 @@ def config_keystone(ip_local):
     # cmd=""" su -s /bin/bash keystone -c "keystone-manage db_sync" """
     # process=subprocess.call(str(cmd), shell=True)
     # check_process(process, cmd )
-    cmd= "keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone"
-    process=subprocess.call(str(cmd), shell=True)
-    check_process(process, cmd )
-    cmd= "keystone-manage credential_setup --keystone-user keystone --keystone-group keystone"
-    process=subprocess.call(str(cmd), shell=True)
-    check_process(process, cmd )
+    # cmd= "keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone"
+    # process=subprocess.call(str(cmd), shell=True)
+    # check_process(process, cmd )
+    # cmd= "keystone-manage credential_setup --keystone-user keystone --keystone-group keystone"
+    # process=subprocess.call(str(cmd), shell=True)
+    # check_process(process, cmd )
     cmd=f"keystone-manage bootstrap --bootstrap-password adminpassword --bootstrap-admin-url http://{ip_local}:5000/v3/ --bootstrap-internal-url http://{ip_local}:5000/v3/ --bootstrap-public-url http://{ip_local}:5000/v3/ --bootstrap-region-id RegionOne"
     process=subprocess.call(str(cmd), shell=True)
     check_process(process, cmd )
