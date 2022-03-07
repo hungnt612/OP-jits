@@ -14,7 +14,7 @@ from functions import *
 
 def config_keystone(ip_local):
     find_and_replace_config("#memcache_servers = localhost:11211","/etc/keystone/keystone.conf",f"memcache_servers = {ip_local}:11211")
-    find_and_replace_config("connection =","/etc/keystone/keystone.conf",f"connection = mysql+pymysql://keystone:password@{ip_local}/keystone")
+    find_and_replace_config("connection = sqlite:////var/lib/keystone/keystone.db","/etc/keystone/keystone.conf",f"connection = mysql+pymysql://keystone:password@{ip_local}/keystone")
     find_and_replace_config("provider = fernet","/etc/keystone/keystone.conf",f"provider = fernet")
     cmd=""" su -s /bin/bash keystone -c "keystone-manage db_sync" """
     process=subprocess.call(str(cmd), shell=True)
