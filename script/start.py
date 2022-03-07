@@ -15,6 +15,7 @@ from mariadb import *
 from getPackages import *
 from keystone import *
 from glance import *
+from nova import *
 _bash_dir=_script_dir+"/bashScript/"
 
 #GLOBAL_VARIABLE 
@@ -32,4 +33,4 @@ subprocess.call("sleep 5 && echo 'Starting now....'",shell=True)
 
 
 subprocess.call(f"chmod +x {_bash_dir}*",shell=True)
-config_glance(_ip_local_address)
+config_nova(_ip_local_address)

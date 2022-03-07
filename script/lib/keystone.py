@@ -10,7 +10,7 @@ _top_dir=os.getcwd().split('\\')[-1]
 _bash_dir=_top_dir+"/lib/bashScript/"
 # sys.path.insert(0,f"{_script_dir}")
 from functions import *
-print(_bash_dir)
+# print(_bash_dir)
 
 def config_keystone(ip_local):
     find_and_replace_config("#memcache_servers = localhost:11211","/etc/keystone/keystone.conf",f"memcache_servers = {ip_local}:11211")
