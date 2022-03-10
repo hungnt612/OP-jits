@@ -18,6 +18,17 @@ from glance import *
 from nova import *
 _bash_dir=_script_dir+"/bashScript/"
 
+
+
+#GET VARIABLE FROM FILE
+from dotenv import load_dotenv
+#pip3 install python-dotenv
+load_dotenv()
+
+_service_pass=""
+_db_pass=""
+_rabbitmq_pass=""
+
 #GLOBAL_VARIABLE 
 _ip_local_address=get_ip_address()
 subnet_interface="0.0.0.0/24"
@@ -33,5 +44,5 @@ subprocess.call("sleep 5 && echo 'Starting now....'",shell=True)
 
 
 subprocess.call(f"chmod +x {_bash_dir}*",shell=True)
-install_package()
-install_mariadb()
+# install_package()
+# install_mariadb()

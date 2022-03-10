@@ -1,10 +1,10 @@
-# #!/bin/bash
+#!/bin/bash
 # # source module/echo.sh
-# echo "hihi"
-# REMOVE !!!!!!!!
+
+rootpasswd=admin
+
+# REMOVE IF EXIST !!!!!!!!
 sudo apt remove -y mariadb mariadb-server && sudo rm -rf /var/lib/mysql /etc/my.cnf 
-
-
 
 echo "Installing and configiring mariadb..."
 
@@ -13,7 +13,7 @@ sudo apt -y install mariadb-server
 sudo systemctl enable mariadb
 sudo systemctl start mariadb
 
-rootpasswd=admin
+
 
 sudo apt install expect -y
 echo "Configiring mariadb.."
