@@ -1,210 +1,44 @@
-apiVersion: platform.confluent.io/v1beta1
-kind: Zookeeper
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: zookeeper
-  namespace: confluent-kafka
+  name: mysql-koi-cbs
 spec:
-  replicas: 1
-  image:
-    application: confluentinc/cp-zookeeper:7.0.0
-    init: confluentinc/confluent-init-container:2.2.0
-  dataVolumeCapacity: 3Gi
-  logVolumeCapacity: 1Gi
-  podTemplate:
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-    podSecurityContext:
-      fsGroup: 0
-      runAsUser: 0
-      #privileged: true
-#      runAsRoot: true
+  selector:
+    matchLabels:
+      app: mysql-koi-cbs
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql-koi-cbs
+    spec:
+      containers:
+      - image: mysql:8.0
+        name: mysql-koi-cbs
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+      ports:
+      - containerPort: 3306
+        name: mysql-koi-cbs
+      volumeMounts:
+      - name: mysql-persistent-storage
+        mountPath: /var/lib/mysql
+    volumes:
+    - name: mysql-persistent-storage
+      persistentVolumeClaim:
+        claimName: mysql-pvc-koi-cbs
 ---
-apiVersion: platform.confluent.io/v1beta1
-kind: Kafka
+apiVersion: v1
+kind: Service
 metadata:
-  name: kafka
-  namespace: confluent-kafka
+  name: mysql-koi-cbs-service
 spec:
-  replicas: 1
-  image:
-    application: confluentinc/cp-server:7.0.0
-    init: confluentinc/confluent-init-container:2.2.0
-  dataVolumeCapacity: 3Gi
-  configOverrides:
-    server:
-      # - "confluent.license.topic.replication.factor=1"
-      # - "confluent.tier.metadata.replication.factor=1"
-      # - "confluent.metadata.topic.replication.factor=1"
-      # - "confluent.balancer.topic.replication.factor=1"
-      # - "confluent.security.event.logger.exporter.kafka.topic.replicas=1"
-      # - "event.logger.exporter.kafka.topic.replicas=1"
-      # - "offsets.topic.replication.factor=1"
-      # - "confluent.cluster.link.enable=true"
-      # - "password.encoder.secret=secret"
-#      - listeners=PLAINTEXT://0.0.0.0:9092
-      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP= INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
-      - advertised.listeners=PLAINTEXT://kafka-0-internal:9092
-#      - KAFKA_LISTENERS= INSIDE://:9092,OUTSIDE://:9094
-      - zookeeper.connect=zookeeper-0-internal:2181
-  podTemplate:
-    resources:
-      requests:
-        cpu: 200m
-        memory: 512Mi
-    podSecurityContext:
-      fsGroup: 0
-      runAsUser: 0
-      #runAsNonRoot: true
-  metricReporter:
-    enabled: true
----
-apiVersion: platform.confluent.io/v1beta1
-kind: Connect
-metadata:
-  name: connect
-  namespace: confluent-kafka
-spec:
-  replicas: 1
-  image:
-    application: hungnt612/cp-kafka-connect:3.0
-    init: confluentinc/confluent-init-container:2.2.0
-    configOverrides:
-      server:
-#       - config.storage.replication.factor=1
-#       - offset.storage.replication.factor=1
-#       - status.storage.replication.factor=1
-# #      - bootstrap.servers=10.233.7.28:9092
-        - advertised.listeners=kafka-0-internal:9092
-        - zookeeper.connect=zookeeper-0-internal:2181
-# #      - confluent.metrics.reporter.bootstrap.servers=kafka-0-internal:9092   
-        - bootstrap.servers=kafka-0-internal:9092
-        - kafkastore.bootstrap.servers=PLAINTEXT://kafka-0-internal:9092
-        - advertised.listeners=PLAINTEXT://kafka-0-internal:9092
-# #      - listeners=INTERNAL://0.0.0.0:19092,EXTERNAL://0.0.0.0:9092
-#       - listener.security.protocol.map=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
-#       - advertised.listeners=INTERNAL://kafka-0-internal:19092,EXTERNAL://kafka-0-internal:9092
-#       - inter.broker.listener.name=INTERNAL
-  podTemplate:
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-    probe:
-      liveness:
-        periodSeconds: 10
-        failureThreshold: 5
-        timeoutSeconds: 500 
-    podSecurityContext:
-      fsGroup: 0
-      runAsUser: 0
-      #runAsNonRoot: true  
----
-apiVersion: platform.confluent.io/v1beta1
-kind: KsqlDB
-metadata:
-  name: ksqldb
-  namespace: confluent-kafka
-spec:
-  replicas: 1
-  image:
-    application: confluentinc/cp-ksqldb-server:7.0.0
-    init: confluentinc/confluent-init-container:2.2.0
-  dataVolumeCapacity: 3Gi
-  podTemplate:
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-    probe:
-      liveness:
-        periodSeconds: 10
-        failureThreshold: 5
-        timeoutSeconds: 500 
-    podSecurityContext:
-      fsGroup: 0
-      runAsUser: 0
-      #runAsNonRoot: true
----
-apiVersion: platform.confluent.io/v1beta1
-kind: ControlCenter
-metadata:
-  name: controlcenter
-  namespace: confluent-kafka
-spec:
-  replicas: 1
-  image:
-    application: confluentinc/cp-enterprise-control-center:7.0.0
-    init: confluentinc/confluent-init-container:2.2.0
-  dataVolumeCapacity: 3Gi
-  configOverrides:
-    server:
-#       - confluent.controlcenter.command.topic.replication=1
-#       - confluent.controlcenter.replication.factor=1
-#       - confluent.metrics.reporter.topic.replicas=1
-#       - confluent.metrics.topic.replication=1
-#       - confluent.monitoring.interceptor.topic.replication=1
-#       - confluent.controlcenter.internal.topics.replication=1
-# #      - control-center.properties=kafka-0-internal:9092
-      - zookeeper.connect=zookeeper-0-internal:2181
-      - confluent.controlcenter.schema.registry.url=schemaregistry-0-internal:8081
-      - confluent.controlcenter.streams.cprest.url=kafka-0-internal:8090
-      - bootstrap.servers=kafka-0-internal:9092
-# #      - confluent.license=192.168.1.226
-# #      - schema.registry.url=schemaregistry-0-internal:8081
-#       - confluent.metadata.basic.auth.user.info=username:password
-# #      - confluent.metadata.bootstrap.server.urls=http://kafka-0-internal:8090
-      - confluent.controlcenter.ksql.ksqlDB.url=ksqldb-0-internal:8088
-# #      - schema.registry.urlexplicitly=schemaregistry-0-internal:8081
-      - advertised.listeners=PLAINTEXT://kafka-0-internal:9092
-#       - listeners=PLAINTEXT://0.0.0.0:9092
-  externalAccess:
-    type: loadBalancer
-    loadBalancer:
-      domain: minikube.domain
-  podTemplate:
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-    probe:
-      liveness:
-        periodSeconds: 10
-        failureThreshold: 5
-        timeoutSeconds: 500
-#    nodeName: node10
-    podSecurityContext:
-      fsGroup: 0
-      runAsUser: 0
-      #runAsNonRoot: true
-  dependencies:
-    schemaRegistry:
-      url: http://schemaregistry-0-internal:8081
-    ksqldb:
-    - name: ksql-dev
-      url: http://ksqldb-0-internal:8088
-    connect:
-    - name: connect-dev
-      url:  http://connect-0-internal:8083
----
-apiVersion: platform.confluent.io/v1beta1
-kind: SchemaRegistry
-metadata:
-  name: schemaregistry
-  namespace: confluent-kafka
-spec:
-  replicas: 1
-  image:
-    application: confluentinc/cp-schema-registry:7.0.0
-    init: confluentinc/confluent-init-container:2.2.0
-  podTemplate:
-    resources:
-      requests:
-        cpu: 100m
-        memory: 200Mi
-    #nodeName: node10
-    podSecurityContext:
-      fsGroup: 0
-      runAsUser: 0
-      #runAsNonRoot: true
+  ports:
+  - port: 3306
+  selector:
+    app: mysql-koi-cbs

@@ -5,7 +5,7 @@ network:
   bridges:
     br-ex:
       dhcp4: no
-      addresses: [192.168.1.7/24]
+      addresses: [192.168.1.9/24]
       gateway4: 192.168.1.1
       nameservers:
         addresses: [8.8.8.8, 8.8.4.4]
